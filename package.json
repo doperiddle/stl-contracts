@@ -51,7 +51,7 @@
     "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
     "@openzeppelin/contracts": "^5.0.0",
     "@openzeppelin/contracts-upgradeable": "^5.0.0",
-    "chai": "^4.3.10",
+    "chai": "^5.1.0",
     "hardhat": "^2.19.2",
     "typescript": "^5.0.0"
   }
