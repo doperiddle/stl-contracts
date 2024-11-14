@@ -35,7 +35,7 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.30.0",
     "eslint-config-prettier": "^8.5.0",
-    "ethereum-waffle": "^3.4.4",
+    "ethereum-waffle": "^4.0.10",
     "ethers": "^5.7.2",
     "hardhat-gas-reporter": "^1.0.9",
     "mocha": "^10.2.0",
