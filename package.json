@@ -28,18 +28,23 @@
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.2",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
-    "@openzeppelin/hardhat-upgrades": "^1.22.0",
+    "@openzeppelin/hardhat-upgrades": "^3.5.0",
     "@tokenscript/attestation": "^0.5.1",
+<<
     "@types/mocha": "^10.0.1",
     "@types/node": "^22.8.1",
+
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^18.11.18",
+
     "dotenv": "^16.0.3",
-    "eslint": "^9.0.0",
+    "eslint": "^9.15.0",
     "eslint-config-prettier": "^8.5.0",
     "ethereum-waffle": "^4.0.8",
     "ethers": "^6.13.1",
-    "hardhat-gas-reporter": "^2.0.0",
+    "hardhat-gas-reporter": "^2.2.1",
     "mocha": "^10.6.0",
-    "prettier": "^2.8.1",
+    "prettier": "^3.3.3",
     "prettier-plugin-solidity": "^1.2.0",
     "solhint": "^3.5.1",
     "solidity-coverage": "^0.8.5",
@@ -51,7 +56,7 @@
     "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
     "@openzeppelin/contracts": "^5.1.0",
     "@openzeppelin/contracts-upgradeable": "^5.0.0",
-    "chai": "^4.3.10",
+    "chai": "^5.1.2",
     "hardhat": "^2.21.0",
     "typescript": "^5.0.0"
   }
