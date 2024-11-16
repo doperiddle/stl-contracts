@@ -39,7 +39,7 @@
     "ethers": "^6.13.1",
     "hardhat-gas-reporter": "^2.0.0",
     "mocha": "^10.6.0",
-    "prettier": "^2.8.1",
+    "prettier": "^3.3.3",
     "prettier-plugin-solidity": "^1.2.0",
     "solhint": "^3.5.1",
     "solidity-coverage": "^0.8.5",
