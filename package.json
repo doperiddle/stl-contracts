@@ -32,7 +32,7 @@
     "@tokenscript/attestation": "^0.5.1",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.4.5",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^8.5.0",
     "ethereum-waffle": "^4.0.8",
