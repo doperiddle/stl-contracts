@@ -30,7 +30,7 @@
     "@nomiclabs/hardhat-waffle": "^2.0.3",
     "@openzeppelin/hardhat-upgrades": "^1.22.0",
     "@tokenscript/attestation": "^0.5.1",
-    "@types/mocha": "^10.0.1",
+    "@types/mocha": "^10.0.9",
     "@types/node": "^18.11.18",
     "dotenv": "^16.0.3",
     "eslint": "^9.0.0",
