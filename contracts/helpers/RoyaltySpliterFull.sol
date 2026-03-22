@@ -8,5 +8,5 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract RoyaltySpliterFull is Ownable, RoyaltySpliterERC20 {
     constructor() Ownable(msg.sender){}
 
-    function _authorizeUpdateRecievers(Receiver[] memory newReceivers) internal override onlyOwner {}
+    function _authorizeUpdateReceivers(Receiver[] memory newReceivers) internal override onlyOwner {}
 }

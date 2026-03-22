@@ -20,8 +20,8 @@ abstract contract RoyaltySpliterStatic {
         return _receivers;
     }
 
-    function updateRecievers(Receiver[] memory newReceivers) external {
-        _authorizeUpdateRecievers(newReceivers);
+    function updateReceivers(Receiver[] memory newReceivers) external {
+        _authorizeUpdateReceivers(newReceivers);
         _validateAndSaveReceivers(newReceivers);
     }
 
@@ -65,17 +65,15 @@ abstract contract RoyaltySpliterStatic {
         }
     }
 
-    /* solhint-disable func-param-name-mixedcase */
-    /* solhint-disable var-name-mixedcase */
-    function _pay(address ETHreceiver, uint256 amount) internal {
+    function _pay(address ethReceiver, uint256 amount) internal {
         // slither-disable-start low-level-calls
         // slither-disable-next-line calls-loop, unused-state
-        (bool sent, ) = ETHreceiver.call{value: amount}("");
+        (bool sent, ) = ethReceiver.call{value: amount}("");
         require(sent, "Failed to send Ether");
         // slither-disable-end low-level-calls
     }
 
     receive() external payable {}
 
-    function _authorizeUpdateRecievers(Receiver[] memory newReceivers) internal virtual;
+    function _authorizeUpdateReceivers(Receiver[] memory newReceivers) internal virtual;
 }
