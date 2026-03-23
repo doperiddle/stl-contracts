@@ -1,11 +1,10 @@
-const { waffle, ethers } = require("hardhat");
-const { provider, deployContract, solidity, link, deployMockContract, createFixtureLoader, loadFixture } = waffle;
+const { ethers } = require("hardhat");
 
 const { expect } = require("chai");
 
 describe("ERC5169", () => {
   async function setup() {
-    const [owner, user, user2] = await provider.getWallets();
+    const [owner, user, user2] = await ethers.getSigners();
 
     const ExampleERC5169 = await ethers.getContractFactory("ExampleERC5169");
     const contract = await ExampleERC5169.connect(owner).deploy();

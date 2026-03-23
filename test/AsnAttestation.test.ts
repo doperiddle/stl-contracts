@@ -1,8 +1,6 @@
-const { ethers, upgrades } = require("hardhat");
+const { ethers } = require("hardhat");
 
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
-import { BigNumber, Contract } from "ethers";
 
 import { KeyPair } from "@tokenscript/attestation/dist/libs/KeyPair";
 import { AttestationCrypto } from "@tokenscript/attestation/dist/libs/AttestationCrypto";
@@ -56,12 +54,11 @@ async function createAsnAttestation(email1 = "mail@mail", email2 = "mail@mail") 
 }
 
 describe("ASN Attestation", function () {
-  let verifyAttestation: Contract;
+  let verifyAttestation: any;
 
   it("deploy contract", async function () {
     const VerifyAttestation = await ethers.getContractFactory("VerifyAttestation");
     verifyAttestation = await VerifyAttestation.deploy();
-    await verifyAttestation.deployed();
   });
 
   it("Validate Attestation", async function () {

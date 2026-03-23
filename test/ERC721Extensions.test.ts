@@ -1,7 +1,5 @@
-const { ethers, waffle } = require("hardhat");
+const { ethers } = require("hardhat");
 import { expect } from "chai";
-
-const SampleERC721Json = require("../artifacts/contracts/package/tokens/ERC721OptimizedEnumerable.sol/ERC721OptimizedEnumerable.json");
 
 describe("ERC20 extensions", function () {
   async function setup() {
@@ -9,7 +7,6 @@ describe("ERC20 extensions", function () {
 
     const ExampleERC721 = await ethers.getContractFactory("ExampleERC721");
     let contract = await ExampleERC721.connect(owner).deploy("", "");
-    await contract.deployed();
 
     return { owner, user, user2, user3, user4, contract };
   }
@@ -19,7 +16,7 @@ describe("ERC20 extensions", function () {
 
     await owner.sendTransaction({
       to: user2.address,
-      value: ethers.utils.parseEther("3.0"),
+      value: ethers.parseEther("3.0"),
     });
 
     await expect(contract.connect(owner).mint(user2.address)).to.emit(contract, "Transfer");
@@ -33,15 +30,18 @@ describe("ERC20 extensions", function () {
   it("ParentContracts", async function () {
     const { contract, user, user2, user3, owner } = await setup();
 
-    const mockERC721 = await waffle.deployMockContract(owner, SampleERC721Json.abi);
-    await mockERC721.mock.supportsInterface.returns(false);
-    await expect(contract.connect(owner).addParent(mockERC721.address)).to.revertedWith("Must be ERC721 contract");
-    await expect(contract.connect(user2).addParent(mockERC721.address)).to.revertedWith('OwnableUnauthorizedAccount("'+user2.address+'")');
+    // ExampleERC5169 supports IERC165 but returns false for IERC721 supportsInterface
+    const ExampleERC5169Factory = await ethers.getContractFactory("ExampleERC5169");
+    const nonErc721 = await ExampleERC5169Factory.connect(owner).deploy();
+    await expect(contract.connect(owner).addParent(nonErc721.target)).to.revertedWith("Must be ERC721 contract");
+    await expect(contract.connect(user2).addParent(nonErc721.target)).to.revertedWith('OwnableUnauthorizedAccount("'+user2.address+'")');
 
-    await mockERC721.mock.supportsInterface.returns(true);
-    await expect(contract.connect(owner).addParent(mockERC721.address)).to.emit(contract, "ParentAdded");
+    // Deploy another ExampleERC721 which properly supports IERC721
+    const ExampleERC721Factory = await ethers.getContractFactory("ExampleERC721");
+    const realErc721 = await ExampleERC721Factory.connect(owner).deploy("test", "TST");
+    await expect(contract.connect(owner).addParent(realErc721.target)).to.emit(contract, "ParentAdded");
 
-    expect(await contract.getParents()).to.eql([mockERC721.address]);
+    expect(await contract.getParents()).to.eql([realErc721.target]);
   });
 
   it("Enumerable", async function () {
@@ -82,15 +82,15 @@ describe("ERC20 extensions", function () {
 
     await expect(contract.connect(owner).mint(user3.address)).to.emit(contract, "Transfer");
 
-    expect(await contract.isSharedHolderTokenOwner(contract.address, 0)).to.eq(false);
+    expect(await contract.isSharedHolderTokenOwner(contract.target, 0)).to.eq(false);
 
     await expect(contract.connect(owner).setSharedTokenHolders([user2.address])).to.emit(contract, "SharedTokenHoldersUpdated");
 
-    expect(await contract.isSharedHolderTokenOwner(contract.address, 0)).to.eq(false);
+    expect(await contract.isSharedHolderTokenOwner(contract.target, 0)).to.eq(false);
 
     await expect(contract.connect(owner).setSharedTokenHolders([user2.address, user3.address])).to.emit(contract, "SharedTokenHoldersUpdated");
 
-    expect(await contract.isSharedHolderTokenOwner(contract.address, 0)).to.eq(true);
+    expect(await contract.isSharedHolderTokenOwner(contract.target, 0)).to.eq(true);
   });
 
   it("set royalty info", async function () {

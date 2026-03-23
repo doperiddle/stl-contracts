@@ -77,9 +77,7 @@ contract ERC721OptimizedEnumerableUpgradeable is IERC721Enumerable, ERC721Upgrad
         }
 
         // Execution should never reach this point.
-        assert(false);
-        // added to stop compiler warnings
-        return 0;
+        revert IndexOutOfBounds();
     }
 
     function totalSupply() public view virtual returns (uint256) {
@@ -111,8 +109,7 @@ contract ERC721OptimizedEnumerableUpgradeable is IERC721Enumerable, ERC721Upgrad
         }
 
         // Execution should never reach this point.
-        assert(false);
-        return 0;
+        revert IndexOutOfBounds();
     }
 
     function _mint(address to) internal {

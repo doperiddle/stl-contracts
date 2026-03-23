@@ -71,9 +71,7 @@ contract ERC721OptimizedEnumerable is ERC721 {
         }
 
         // Execution should never reach this point.
-        assert(false);
-        // added to stop compiler warnings
-        return 0;
+        revert IndexOutOfBounds();
     }
 
     function totalSupply() public view virtual returns (uint256) {
@@ -104,9 +102,7 @@ contract ERC721OptimizedEnumerable is ERC721 {
         }
 
         // Execution should never reach this point.
-        assert(false);
-        // added to stop compiler warnings
-        return 0;
+        revert IndexOutOfBounds();
     }
 }
 

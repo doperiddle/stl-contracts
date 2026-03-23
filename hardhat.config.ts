@@ -1,10 +1,9 @@
-import "@nomiclabs/hardhat-waffle";
-
 import "@nomicfoundation/hardhat-toolbox-viem";
+import "@nomicfoundation/hardhat-chai-matchers";
 import "@openzeppelin/hardhat-upgrades";
 // import "@nomicfoundation/hardhat-chai-matchers";
 
-import "@nomiclabs/hardhat-ethers";
+// import "@nomiclabs/hardhat-ethers";
 require("dotenv").config();
 
 /// ENVVAR
@@ -99,6 +98,16 @@ let config = {
             enabled: true,
             runs: 200,
           },
+        },
+      },
+      {
+        version: "0.8.26",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+          evmVersion: "cancun",
         },
       },
     ],

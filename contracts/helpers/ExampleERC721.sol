@@ -40,13 +40,12 @@ contract ExampleERC721 is Ownable, ERC2981RoyaltyFull, Minter, SharedHolders, Pa
         return ERC721._ownerOf(tokenId);
     }
 
-    function mint(address to) public virtual {
+    function mint(address to) public onlyOwner {
         ERC721OptimizedEnumerable._mint(to);
     }
 
     function burn(uint256 tokenId) public virtual {
-        //solhint-disable-next-line max-line-length
-        _burn(tokenId);
+        _update(address(0), tokenId, _msgSender());
     }
 
     function isSharedHolderTokenOwner(address _contract, uint256 tokenId) public view returns (bool) {

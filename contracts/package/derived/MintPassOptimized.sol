@@ -8,10 +8,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/Math.sol";
 
 import "@openzeppelin/contracts/utils/Address.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 import "../royalty/DerivedERC2981Royalty.sol";
 
-contract MintPassOptimized is ERC721, Ownable, DerivedERC2981Royalty, IERC721Enumerable {
+contract MintPassOptimized is ERC721, Ownable, DerivedERC2981Royalty, IERC721Enumerable, ReentrancyGuard {
     using Math for uint256;
     using Address for address;
 
@@ -109,7 +110,7 @@ contract MintPassOptimized is ERC721, Ownable, DerivedERC2981Royalty, IERC721Enu
         _royaltyReceiver = newAddress;
     }
 
-    function withdraw() public onlyOwner {
+    function withdraw() public onlyOwner nonReentrant {
         uint balance = address(this).balance;
         //slither-disable-next-line low-level-calls
         (bool sent, ) = _msgSender().call{value: balance}("");
@@ -221,9 +222,7 @@ contract MintPassOptimized is ERC721, Ownable, DerivedERC2981Royalty, IERC721Enu
         }
 
         // Execution should never reach this point.
-        assert(false);
-        // added to stop compiler warnings
-        return 0;
+        revert("MP: owner index out of bounds");
     }
 
     function totalSupply() public view virtual override returns (uint256) {
@@ -252,8 +251,7 @@ contract MintPassOptimized is ERC721, Ownable, DerivedERC2981Royalty, IERC721Enu
         }
 
         // Execution should never reach this point.
-        assert(false);
-        return 0;
+        revert("MP: index out of bounds");
     }
 
     function _getMintPrice() internal view virtual returns (uint) {

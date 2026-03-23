@@ -1,16 +1,13 @@
-const { waffle, ethers, upgrades } = require("hardhat");
-const { provider, deployContract, solidity, link, deployMockContract, createFixtureLoader, loadFixture } = waffle;
-
+const { ethers, upgrades } = require("hardhat");
 import { expect } from "chai";
 
 describe("UriChangerUpgradeable", () => {
   async function setup() {
-    const [owner, user, user2] = await provider.getWallets();
+    const [owner, user, user2] = await ethers.getSigners();
 
     const ExampleUriChangerFactory = (await ethers.getContractFactory("ExampleUriChangerUpgradeable")).connect(owner);
 
     let contract = await upgrades.deployProxy(ExampleUriChangerFactory, []);
-    await contract.deployed();
 
     return { owner, user, user2, contract };
   }
@@ -30,7 +27,7 @@ describe("UriChangerUpgradeable", () => {
     expect(await contract.getValue()).to.be.equal(1);
     await expect(contract.connect(user).updateUriChanger(user2.address)).to.revertedWith('OwnableUnauthorizedAccount("'+user.address+'")');
 
-    await expect(contract.connect(owner).updateUriChanger(ethers.constants.AddressZero)).to.revertedWith("UriChanger: Address required");
+    await expect(contract.connect(owner).updateUriChanger(ethers.ZeroAddress)).to.revertedWith("UriChanger: Address required");
 
     await expect(contract.connect(owner).updateUriChanger(user.address)).to.emit(contract, "UriChangerUpdated");
 

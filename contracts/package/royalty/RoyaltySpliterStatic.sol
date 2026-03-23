@@ -2,7 +2,9 @@
 
 pragma solidity ^0.8.16;
 
-abstract contract RoyaltySpliterStatic {
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
+abstract contract RoyaltySpliterStatic is ReentrancyGuard {
     struct Receiver {
         address wallet;
         uint16 revenue;
@@ -45,7 +47,7 @@ abstract contract RoyaltySpliterStatic {
         require(sum == 10000, "Total revenue must be 10000");
     }
 
-    function withdrawETH() external {
+    function withdrawETH() external nonReentrant {
         uint balance = address(this).balance;
         require(balance > 0, "Empty balance");
 
