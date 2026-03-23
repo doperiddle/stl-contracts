@@ -32,13 +32,13 @@ describe("Derived Contracts Test", function () {
     await expect(contract.withdrawETH()).to.revertedWith("No receivers");
 
     await expect(
-      contract.updateRecievers([
+      contract.updateReceivers([
         [user2.address, 5000],
         [user3.address, 5001],
       ])
     ).to.revertedWith("Total revenue must be 10000");
 
-    await contract.updateRecievers([
+    await contract.updateReceivers([
       [user2.address, user2Rate * 100],
       [user3.address, user3Rate * 100],
     ]);
@@ -74,7 +74,7 @@ describe("Derived Contracts Test", function () {
     let user1Rate = 20;
     let user2Rate = 80;
     await expect(
-      contract.connect(owner).updateRecievers([
+      contract.connect(owner).updateReceivers([
         [user2.address, user1Rate * 100],
         [user3.address, user2Rate * 100],
       ])

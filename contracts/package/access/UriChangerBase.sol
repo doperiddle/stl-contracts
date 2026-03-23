@@ -8,14 +8,14 @@ abstract contract UriChangerBase {
     event UriChangerUpdated(address indexed previousAddress, address indexed newAddress);
 
     /**
-     * @dev Returns the address of the current owner.
+     * @dev Returns the address of the current URI changer.
      */
     function _getUriChanger() internal view returns (address) {
         return _uriChanger;
     }
 
     /**
-     * @dev Throws if called by any account other than the owner.
+     * @dev Throws if called by any account other than the URI changer.
      */
     modifier onlyUriChanger() {
         require(_getUriChanger() == msg.sender, "UriChanger: caller is not allowed");
@@ -23,8 +23,8 @@ abstract contract UriChangerBase {
     }
 
     /**
-     * @dev Transfers ownership of the contract to a new account (`newOwner`).
-     * Can only be called by the current owner.
+     * @dev Updates the URI changer to a new account (`newAddress`).
+     * Can only be called by the current URI changer.
      */
     function updateUriChanger(address newAddress) public virtual {
         _authorizeUpdateUriChanger(newAddress);
@@ -33,7 +33,7 @@ abstract contract UriChangerBase {
     }
 
     /**
-     * @dev Transfers ownership of the contract to a new account (`newOwner`).
+     * @dev Updates the URI changer to a new account (`newAddress`).
      * Internal function without access restriction.
      */
     function _updateUriChanger(address newAddress) internal virtual {

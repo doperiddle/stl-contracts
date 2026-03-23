@@ -12,7 +12,7 @@ abstract contract DerivedERC2981Royalty is _IERC2981 {
 
     //slither-disable-next-line dead-code
     function _setRoyalty(uint256 value) internal {
-        require(value <= 10000, "Royalty more that 100%");
+        require(value <= 10000, "Royalty more than 100%");
         emit RoyaltyUpdated(value);
         _royalty = value;
     }

@@ -28,7 +28,7 @@ abstract contract RoyaltySpliterERC20 is RoyaltySpliterStatic {
 
         // get this contract balance to withdraw
         uint balance = erc20c.balanceOf(address(this));
-        // throw error if it requests more that in the contract balance
+        // revert if the contract has no balance
         require(balance > 0, "Balance is Empty");
 
         unchecked {
